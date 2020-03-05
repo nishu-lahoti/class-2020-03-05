@@ -1,0 +1,27 @@
+---
+title: "class-2020-03-05"
+author: "Nishu Lahoti"
+date: "3/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(googlesheets4)
+library(tidyverse)
+library(dplyr)
+library(janitor)
+
+sheets_deauth()
+
+x <- read_sheet(ss = "14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA") %>%
+  clean_names() %>%
+  mutate(perc_red = red / (red+white))
+```
+
+```{r}
+
+```
+
+
