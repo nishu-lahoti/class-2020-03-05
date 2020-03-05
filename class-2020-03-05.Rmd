@@ -12,6 +12,7 @@ library(googlesheets4)
 library(tidyverse)
 library(dplyr)
 library(janitor)
+library(infer)
 
 sheets_deauth()
 
@@ -22,6 +23,26 @@ x <- read_sheet(ss = "14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA") %>%
 
 ```{r}
 
+ggplot(x, aes(perc_red)) + 
+  geom_histogram(bins=20) +
+  labs(title = "Percentage of Red Beads Drawn",
+       subtitle = "Should we be suspicious of those outliers?",
+       caption = "Classroom data from 2020-03-03",
+       x = "Percentage of Red Beads Out of 25 Drawn",
+       y = "Count")
+
 ```
 
+```{r}
+
+urn <- tibble(bean_id = 1:10000, 
+              color = c(rep("red", 2000), rep("white", 8000)))
+
+urn %>%
+  rep_sample_n(size = 25, reps = 10) %>% 
+  summarize(red_sum = sum(color == "red")) %>%
+  mutate(perc_red = red_sum / 25)
+
+
+```
 
