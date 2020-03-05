@@ -380,23 +380,17 @@ summary {
 <pre class="r"><code>urn &lt;- tibble(bean_id = 1:10000, 
               color = c(rep(&quot;red&quot;, 2000), rep(&quot;white&quot;, 8000)))
 
-urn %&gt;%
-  rep_sample_n(size = 25, reps = 10) %&gt;% 
+make_class_plot &lt;- function(urn) {
+  
+  urn %&gt;%
+  rep_sample_n(size = 25, reps = 51) %&gt;% 
   summarize(red_sum = sum(color == &quot;red&quot;)) %&gt;%
-  mutate(perc_red = red_sum / 25)</code></pre>
-<pre><code>## # A tibble: 10 x 3
-##    replicate red_sum perc_red
-##        &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
-##  1         1       4     0.16
-##  2         2       6     0.24
-##  3         3       3     0.12
-##  4         4       4     0.16
-##  5         5       8     0.32
-##  6         6       3     0.12
-##  7         7       4     0.16
-##  8         8       3     0.12
-##  9         9       4     0.16
-## 10        10       3     0.12</code></pre>
+  mutate(perc_red = red_sum / 25)
+
+}
+
+class_samples &lt;- tibble(class_id = 1:10, 
+                        results = map(class_id, ~ make_class_plot(urn)))</code></pre>
 
 
 

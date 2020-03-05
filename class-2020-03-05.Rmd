@@ -38,11 +38,16 @@ ggplot(x, aes(perc_red)) +
 urn <- tibble(bean_id = 1:10000, 
               color = c(rep("red", 2000), rep("white", 8000)))
 
-urn %>%
-  rep_sample_n(size = 25, reps = 10) %>% 
+make_class_plot <- function(urn) {
+  
+  urn %>%
+  rep_sample_n(size = 25, reps = 51) %>% 
   summarize(red_sum = sum(color == "red")) %>%
   mutate(perc_red = red_sum / 25)
 
+}
 
-```
+class_samples <- tibble(class_id = 1:10, 
+                        results = map(class_id, ~ make_class_plot(urn)))
+
 
