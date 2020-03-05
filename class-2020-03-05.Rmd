@@ -32,9 +32,7 @@ ggplot(x, aes(perc_red)) +
        y = "Count")
 
 ```
-
 ```{r}
-
 urn <- tibble(bean_id = 1:10000, 
               color = c(rep("red", 2000), rep("white", 8000)))
 
@@ -49,5 +47,5 @@ make_class_plot <- function(urn) {
 
 class_samples <- tibble(class_id = 1:10, 
                         results = map(class_id, ~ make_class_plot(urn)))
-
+```
 
